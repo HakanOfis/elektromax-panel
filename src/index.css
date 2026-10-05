@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/archivo/wdth.css";
+
+:root {
+  --navy: #0b2a5b;
+  --ink: #06173a;
+  --orange: #ffc61a;
+  --orange-deep: #f5a400;
+  --paper: #f3f4f7;
+  --background: #f3f4f7;
+  --foreground: #0d1526;
+  --card: #ffffff;
+  --card-foreground: #0d1526;
+  --popover: #ffffff;
+  --popover-foreground: #0d1526;
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+  --secondary: #eceff4;
+  --secondary-foreground: #0d1526;
+  --muted: #eceff4;
+  --muted-foreground: #5b6478;
+  --accent: #fff4cc;
+  --accent-foreground: #0d1526;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e2e6ee;
+  --input: #d5dbe6;
+  --ring: var(--orange);
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-heading: "Archivo Variable", "Geist Variable", sans-serif;
+  --font-sans: "Geist Variable", system-ui, sans-serif;
+  --color-navy: var(--navy);
+  --color-ink: var(--ink);
+  --color-orange: var(--orange);
+  --color-orange-deep: var(--orange-deep);
+  --color-paper: var(--paper);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background font-sans text-foreground antialiased; }
+  h1, h2, h3 { @apply font-heading; font-stretch: 85%; }
+}
