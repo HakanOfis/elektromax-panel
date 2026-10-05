@@ -207,7 +207,13 @@ function Setup() {
       setPass2("");
       setMsg({ tone: "ok", text: "Kurulum tamamlandı. Artık kullanıcı adı ve şifreyle giriş yapılabilir." });
     } catch (err) {
-      setMsg({ tone: "error", text: err.message || "Bir hata oluştu." });
+      const denied = err.status === 403 || /not accessible by personal access token/i.test(err.message ?? "");
+      setMsg({
+        tone: "error",
+        text: denied
+          ? `GitHub bu anahtara ${REPO} deposuna yazma izni vermedi. Anahtarı düzenleyin: “Only select repositories” altında ${OWNER}/${REPO} seçili olmalı ve Repository permissions → Contents: “Read and write” olmalı. Sonra tekrar deneyin.`
+          : err.message || "Bir hata oluştu.",
+      });
     } finally {
       setBusy(false);
     }
@@ -809,7 +815,8 @@ function Editor({ token, onLogout }) {
       }
       setPublish({ state: "done-unknown", note });
     } catch (e) {
-      if (e.status === 401 || e.status === 403) setPublish({ state: "error", text: "GitHub anahtarı geçersiz veya süresi dolmuş. Yöneticinize haber verin (ilk kurulum yeniden yapılmalı)." });
+      if (e.status === 401) setPublish({ state: "error", text: "GitHub anahtarı geçersiz veya süresi dolmuş. Yöneticinize haber verin (ilk kurulum yeniden yapılmalı)." });
+      else if (e.status === 403) setPublish({ state: "error", text: `GitHub anahtarının ${REPO} deposuna yazma izni yok (Contents: Read and write). Yöneticinize haber verin.` });
       else setPublish({ state: "error", text: "Yayınlanamadı: " + e.message });
     }
   };
